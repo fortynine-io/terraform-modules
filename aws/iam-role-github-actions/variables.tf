@@ -25,10 +25,10 @@ variable "repo_authorization_scopes" {
 }
 
 
-variable "iam_resource_path" {
+variable "path" {
   type        = string
   description = <<-EOT
-    (Optional) GitHub Actions IAM Role resource path.
+    (Optional) GitHub Actions IAM Role URI path.
 
     Note: Leaving this unset (default '/') is recommended when creating IAM Roles to apply / install Helm charts for EKS
     due to downstream EKS IAM Authenticator bugs when using non-default IAM Resource Paths.
@@ -38,33 +38,33 @@ variable "iam_resource_path" {
 }
 
 variable "name" {
-  type = string
+  type        = string
   description = <<-EOT
     (Optional) GitHub Actions IAM Role name.
 
     Note: If omitted, Terraform will assign a random, unique name.
   EOT
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 variable "name_prefix" {
-  type = string
+  type        = string
   description = <<-EOT
     (Optional) GitHub Actions IAM Role Name prefix. This is used as a "friendly name" prefix when Terraform generates a
     random, unique name.
 
     Note: This conflicts with 'var.name'.
   EOT
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 variable "policy_arns" {
   type        = list(string)
   description = "(Optional) List of IAM Policy ARNs to attach to the GitHub Actions IAM Role."
   nullable    = false
-  default = []
+  default     = []
 }
 
 variable "tags" {
@@ -76,5 +76,5 @@ variable "tags" {
     those defined at the provider-level.
   EOT
   default     = {}
-  nullable = false
+  nullable    = false
 }

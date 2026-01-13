@@ -33,6 +33,7 @@ data "aws_iam_policy_document" "trust_policy" {
 resource "aws_iam_role" "github_actions" {
   name        = var.name
   name_prefix = var.name_prefix
+  path        = var.path
   description = local.description
 
   assume_role_policy = data.aws_iam_policy_document.trust_policy.json
