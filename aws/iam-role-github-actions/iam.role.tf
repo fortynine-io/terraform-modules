@@ -1,6 +1,5 @@
 locals {
   description               = "GitHub Actions Role: ${var.description}"
-  policy_arns               = compact(distinct(var.policy_arns))
   repo_authorization_scopes = compact(distinct(var.repo_authorization_scopes))
 }
 
@@ -43,11 +42,4 @@ resource "aws_iam_role" "github_actions" {
   force_detach_policies = true
 
   tags = local.default_tags
-}
-
-resource "aws_iam_role_policy_attachment" "github_actions" {
-  for_each = toset(local.policy_arns)
-
-  role       = aws_iam_role.github_actions.name
-  policy_arn = each.value
 }

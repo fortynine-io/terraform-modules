@@ -60,13 +60,6 @@ variable "name_prefix" {
   default     = null
 }
 
-variable "policy_arns" {
-  type        = list(string)
-  description = "(Optional) List of IAM Policy ARNs to attach to the GitHub Actions IAM Role."
-  nullable    = false
-  default     = []
-}
-
 variable "tags" {
   type        = map(string)
   description = <<-EOT
