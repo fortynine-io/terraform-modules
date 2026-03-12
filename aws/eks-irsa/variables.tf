@@ -4,7 +4,7 @@ variable "description" {
     (Required) IAM Role description.
 
     NOTE: IAM Roles created by this module will always have the following description format:
-      "EKS IRSA: ${var.eks_cluster.name} / ${var.description}"
+      "EKS IRSA: [eks_cluster.name] / [var.description]"
   EOT
   nullable    = false
 }
