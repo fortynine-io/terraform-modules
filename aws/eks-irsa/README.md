@@ -12,15 +12,15 @@ Terraform module for provisioning IAM Roles for Kubernetes ServiceAccount (IRSA)
     that might actively be using the resources.
   * Additional EKS Clusters within the same AWS Account or additional "like" services within the same EKS Cluster (i.e.
     _within a different k8s namespace_) are able to create the same IRSA components.
-* `var.iam_trust_policy_subjects` configures which EKS / Kubernetes `Group` or `ServiceAccount` resources will have
+* `var.trust_policy_subjects` configures which EKS / Kubernetes `Group` or `ServiceAccount` resources will have
   access (via EKS OIDC provider) to assume the IAM Role created by this module.
-  * `var.iam_trust_policy_subjects.exact_match` is preferred over `var.iam_trust_policy_subjects.like_match`
+  * `var.trust_policy_subjects.exact_match` is preferred over `var.trust_policy_subjects.like_match`
     as it provides the most explicit privilege assignment.
-  * `var.iam_trust_policy_subjects.like_match` allows callers to craft a subject list using wildcard [`*`] characters.
+  * `var.trust_policy_subjects.like_match` allows callers to craft a subject list using wildcard [`*`] characters.
     This is useful for scenarios where multiple service accounts (possibly in separate Kubernetes namespaces) need
     similar AWS access.
-  * Either `var.iam_trust_policy_subjects.exact_match` or `var.iam_trust_policy_subjects.like_match` are required. If
-    both values are provided, only `var.iam_trust_policy_subjects.exact_match` is used.
+  * Either `var.trust_policy_subjects.exact_match` or `var.trust_policy_subjects.like_match` are required. If
+    both values are provided, only `var.trust_policy_subjects.exact_match` is used.
 
 ## Example Usage
 
@@ -38,9 +38,10 @@ module "irsa" {
     }
   }
 
-  iam_role_name_slug = "example"
+  description = "example role for Kubernetes XYZ service"
+  name_slug   = "example"
 
-  iam_trust_policy_subjects = {
+  trust_policy_subjects = {
     exact_match = ["system:serviceaccount:example-namespace:example-service]
   }
 
@@ -60,12 +61,13 @@ _A complete Changelog history can be found in [aws/eks-irsa/CHANGELOG.md](CHANGE
 
 _All variable details can be found in [aws/eks-irsa/variables.tf](variables.tf)._
 
-| Variable Name               | Description                                                                                           |
-|-----------------------------|-------------------------------------------------------------------------------------------------------|
-| `eks_cluster`               | (Required) EKS Cluster configuration details.                                                         |
-| `iam_role_name_slug`        | (Required) Name "slug" used in generating the IAM Role name.                                          |
-| `iam_trust_policy_subjects` | (Required) IAM Role trust policy OIDC subjects.                                                       |
-| `tags`                      | (Optional) Key-value map of resource tags to be applied to all taggable resources within this module. |
+| Variable Name           | Description                                                                                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------|
+| `eks_cluster`           | (Required) EKS Cluster configuration details.                                                         |
+| `name_slug`             | (Required) Name "slug" used in generating the IAM Role name.                                          |
+| `trust_policy_subjects` | (Required) IAM Role trust policy OIDC subjects.                                                       |
+| `path`                  | (Optional) IAM Role URI path.                                                                         |
+| `tags`                  | (Optional) Key-value map of resource tags to be applied to all taggable resources within this module. |
 
 ## Outputs
 
