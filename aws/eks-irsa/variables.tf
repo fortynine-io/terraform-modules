@@ -18,17 +18,6 @@ variable "eks_cluster" {
   nullable    = false
 }
 
-variable "iam_policy_arns" {
-  type        = list(string)
-  description = "(Required) List of IAM Policy ARNs to attach to the IAM Role."
-  nullable    = false
-
-  validation {
-    condition     = (length(coalesce(var.iam_policy.arns, [])) > 0)
-    error_message = "[iam_policy_arns] cannot be empty. At least one IAM Policy ARN must be provided."
-  }
-}
-
 variable "iam_role_name_slug" {
   type        = string
   description = <<-EOT

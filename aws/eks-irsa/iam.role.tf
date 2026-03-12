@@ -58,14 +58,3 @@ resource "aws_iam_role" "irsa" {
     create_before_destroy = true
   }
 }
-
-resource "aws_iam_role_policy_attachment" "policy_arns" {
-  for_each = toset(var.iam_policy_arns)
-
-  role       = aws_iam_role.irsa.name
-  policy_arn = each.value
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
