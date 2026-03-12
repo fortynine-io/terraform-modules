@@ -2,8 +2,8 @@ locals {
   iam_resource_path = "/"
   iam_resource_desc = "EKS IRSA: ${var.eks_cluster.name} / ${var.name_slug}"
 
-  has_exact_match_subjects = (length(coalesce(var.iam_trust_policy_subjects.exact_match, [])) > 0)
-  has_like_match_subjects  = (length(coalesce(var.iam_trust_policy_subjects.like_match, [])) > 0)
+  has_exact_match_subjects = (length(coalesce(var.trust_policy_subjects.exact_match, [])) > 0)
+  has_like_match_subjects  = (length(coalesce(var.trust_policy_subjects.like_match, [])) > 0)
   exact_match_subjects     = local.has_exact_match_subjects ? [true] : []
   like_match_subjects      = (local.has_like_match_subjects && !local.has_exact_match_subjects) ? [true] : []
 }
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "trust_policy" {
       content {
         test     = "StringEquals"
         variable = "${var.eks_cluster.oidc.url}:sub"
-        values   = var.iam_trust_policy_subjects.exact_match
+        values   = var.trust_policy_subjects.exact_match
       }
     }
 
@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "trust_policy" {
       content {
         test     = "StringLike"
         variable = "${var.eks_cluster.oidc.url}:sub"
-        values   = var.iam_trust_policy_subjects.like_match
+        values   = var.trust_policy_subjects.like_match
       }
     }
   }

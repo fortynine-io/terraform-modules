@@ -39,7 +39,7 @@ variable "name_slug" {
   }
 }
 
-variable "iam_trust_policy_subjects" {
+variable "trust_policy_subjects" {
   type = object({
     exact_match = optional(list(string))
     like_match  = optional(list(string))
@@ -56,9 +56,9 @@ variable "iam_trust_policy_subjects" {
   nullable    = false
 
   validation {
-    condition     = length(coalesce(var.iam_trust_policy_subjects.exact_match, [])) > 0 || length(coalesce(var.iam_trust_policy_subjects.like_match, [])) > 0
+    condition     = length(coalesce(var.trust_policy_subjects.exact_match, [])) > 0 || length(coalesce(var.trust_policy_subjects.like_match, [])) > 0
     error_message = <<-EOT
-      Either [iam_trust_policy_subjects.exact_match] or [iam_trust_policy_subjects.like_match] must be provided.
+      Either [trust_policy_subjects.exact_match] or [trust_policy_subjects.like_match] must be provided.
     EOT
   }
 }
