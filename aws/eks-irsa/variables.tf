@@ -1,3 +1,14 @@
+variable "description" {
+  type        = string
+  description = <<-EOT
+    (Required) IAM Role description.
+
+    NOTE: IAM Roles created by this module will always have the following description format:
+      "EKS IRSA: ${var.eks_cluster.name} / ${var.description}"
+  EOT
+  nullable    = false
+}
+
 variable "eks_cluster" {
   type = object({
     name = string
@@ -63,6 +74,15 @@ variable "trust_policy_subjects" {
   }
 }
 
+
+variable "path" {
+  type        = string
+  description = <<-EOT
+    (Optional) IAM Role URI path.
+  EOT
+  nullable    = false
+  default     = "/"
+}
 
 variable "tags" {
   type        = map(string)
