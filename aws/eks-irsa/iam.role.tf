@@ -1,6 +1,6 @@
 locals {
   iam_resource_path = "/"
-  iam_resource_desc = "EKS IRSA: ${var.eks_cluster.name} / ${var.iam_role_name_slug}"
+  iam_resource_desc = "EKS IRSA: ${var.eks_cluster.name} / ${var.name_slug}"
 
   has_exact_match_subjects = (length(coalesce(var.iam_trust_policy_subjects.exact_match, [])) > 0)
   has_like_match_subjects  = (length(coalesce(var.iam_trust_policy_subjects.like_match, [])) > 0)
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "trust_policy" {
 }
 
 resource "aws_iam_role" "irsa" {
-  name_prefix = "eks-irsa-${var.iam_role_name_slug}-"
+  name_prefix = "eks-irsa-${var.name_slug}-"
   description = local.iam_resource_desc
 
   path               = local.iam_resource_path

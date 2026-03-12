@@ -18,25 +18,24 @@ variable "eks_cluster" {
   nullable    = false
 }
 
-variable "iam_role_name_slug" {
+variable "name_slug" {
   type        = string
   description = <<-EOT
     (Required) Name "slug" used in generating the IAM Role name.
 
     Notes:
-      - EKS IRSA IAM Role names are given the following format: "eks-irsa-{iam-role-name-slug}-{terraform-suffix}".
-      - "eks-irsa-" is a standard prefix.
+      - EKS IRSA IAM Role names are given the following format: "eks-irsa-{name-slug}-{terraform-suffix}".
       - "-{terraform-suffix}" is 26 characters of entropy in the form of a timestamp added by Terraform to the end of
-        each Role name (see README#design-notes for more detail).
+        each Role name.
       - Because a 37-character chunk of the the 64-character IAM Role name limit is already accounted for by the
-        prefix/suffix components, [iam_role_name_slug] cannot exceed 27 characters.
+        prefix/suffix components, [name_slug] cannot exceed 27 characters.
 
   EOT
   nullable    = false
 
   validation {
-    condition     = length(var.iam_role_name_slug) <= 27
-    error_message = "[iam_role_name_slug] must be 27 characters or less."
+    condition     = length(var.name_slug) <= 27
+    error_message = "[name_slug] must be 27 characters or less."
   }
 }
 
