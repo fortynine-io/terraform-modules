@@ -4,13 +4,13 @@ Terraform Module for provisioning an IAM Role to be assumed by GitHub Actions wo
 
 ## Design Notes
 
+* This module does not manage policy attachments for the IAM Role. Those must be maintained by the calling root module.
 * This module is designed to work in conjunction with the `aws/iam-oidc-github-actions` module as
   `var.iam_oidc_provider_arn` requires the ARN of an IAM OIDC Provider (configured to trust GitHub Actions) to grant
   `sts:AssumeRoleWithWebIdentity` privileges.
 * The temporary credentials assumed by the federated OIDC web identity (provided by the GitHub Actions workflow and
   trusted by the affiliated GitHub Actions IAM OIDC Provider), is a _much more secure option_ than maintaining
   long-lived AWS IAM User credentials (i.e.`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`) via GitHub Actions secrets.
-* This module does not manage policy attachments for the IAM Role. Those must be maintained by the calling root module.
 
 ## References
 
@@ -46,7 +46,7 @@ the following formats:
 `var.repo_authorization_scopes` accepts a list of OIDC subject values and allows callers the ability to restrict assume
 role access all the way down to the individual repo branch if necessary. More often however, assume role access will not
 require that particular level granularity. The following examples demonstrate various configuration approaches
-for `var.repo authorization_scope` depending on your use case.
+for `var.repo_authorization_scope` depending on your use case.
 
 ```hcl
 # Allow all repos for a specific organization...
@@ -110,10 +110,11 @@ _All variable details can be found in [aws/iam-oidc-github-actions/variables.tf]
 
 _All output details can be found in [aws/iam-oidc-github-actions/outputs.tf](outputs.tf)._
 
-| Variable Name | Description                   |
-|---------------|-------------------------------|
-| `arn`         | GitHub Actions IAM Role arn.  |
-| `name`        | GitHub Actions IAM Role name. |
+| Variable Name | Description                          |
+|---------------|--------------------------------------|
+| `arn`         | GitHub Actions IAM Role arn.         |
+| `description` | GitHub Actions IAM Role description. |
+| `name`        | GitHub Actions IAM Role name.        |
 
 [gha-config-oidc-in-aws]: https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws
 [gha-config-oidc-in-aws-trust-policy]: https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws#configuring-the-role-and-trust-policy

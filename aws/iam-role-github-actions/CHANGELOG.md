@@ -3,6 +3,10 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
+## 0.1.1 [03/12/2026]
+
+* Adds `description` output variable.
+
 ## 0.1.0 [01/05/2026]
 
 * Initial Module implementation.
