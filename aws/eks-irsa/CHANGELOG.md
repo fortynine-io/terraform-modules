@@ -5,7 +5,10 @@ _approximate date each of the changes were made._
 
 ## 0.1.0 [03/12/2026]
 
-* Renames output variables to remove `iam_role` prefixes: `arn`, `description` and `name`.
+* Removes `iam_role_` prefix from all output variables.
+  * `output.arn`
+  * `output.description`
+  * `output.name`
 
 ## 0.0.1 [03/12/2026]
 
