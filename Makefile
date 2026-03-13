@@ -5,9 +5,10 @@ CHECKOV_TAG ?= latest
 TFLINT_TAG ?= latest
 TRIVY_TAG ?= latest
 
-MODULES ?= aws/iam-oidc-github-actions \
-					 aws/iam-role-github-actions \
-					 aws/eks-irsa
+MODULES ?= aws/eks-addon \
+					 aws/eks-irsa \
+					 aws/iam-oidc-github-actions \
+					 aws/iam-role-github-actions
 
 REPO_ROOT=$(shell pwd)
 
