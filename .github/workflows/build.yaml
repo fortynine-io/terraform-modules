@@ -1,0 +1,26 @@
+name: Root Module - Build
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  lint-tasks:
+    name: Lint Tasks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ~1.14.0
+          terraform_wrapper: false
+
+      - name: Run CI Tasks
+        run: make module.ci
