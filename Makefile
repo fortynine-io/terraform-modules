@@ -46,7 +46,7 @@ module.lint.terraform:
 		cd $${MODULE}; \
 		terraform init || exit $?; \
 		terraform validate || exit $?; \
-		cd ..; \
+		cd ${REPO_ROOT}; \
 	done
 
 
