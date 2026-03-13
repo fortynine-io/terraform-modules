@@ -36,4 +36,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+**/.external_modules
 **/.terraform.lock.hcl
