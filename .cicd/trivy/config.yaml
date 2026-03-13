@@ -1,0 +1,31 @@
+debug: true
+exit-code: 1
+format: table
+ignorefile: src/.cicd/trivy/ignore.yaml
+insecure: false
+quiet: false
+report: all
+secret:
+  config: src/.cicd/trivy/secret.yaml
+severity:
+  - UNKNOWN
+  - LOW
+  - MEDIUM
+  - HIGH
+  - CRITICAL
+timeout: 5m0s
+
+misconfiguration:
+  include-non-failures: false
+  checks-bundle-repository: mirror.gcr.io/aquasec/trivy-checks:1
+  terraform:
+    exclude-downloaded-modules: false
+
+scan:
+  scanners:
+    - misconfig
+    - secret
+  skip-dirs:
+    - ".ignore"
+    - "**/.ignore"
+  skip-files: []
