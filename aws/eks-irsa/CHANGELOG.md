@@ -5,6 +5,10 @@ _approximate date each of the changes were made._
 
 ## 0.1.0 [03/12/2026]
 
+* Renames output variables to remove `iam_role` prefixes: `arn`, `description` and `name`.
+
+## 0.0.1 [03/12/2026]
+
 * Initial module implementation.
   * Creates an IAM Role for Kubernetes ServiceAccount resources
   * IAM Policy attachments must be performed via the calling module.

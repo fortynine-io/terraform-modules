@@ -73,8 +73,8 @@ _All variable details can be found in [aws/eks-irsa/variables.tf](variables.tf).
 
 _All output details can be found in [aws/eks-irsa/outputs.tf](outputs.tf)._
 
-| Variable Name          | Description                                       |
-|------------------------|---------------------------------------------------|
-| `iam_role_arn`         | Kubernetes `ServiceAccount` IAM Role ARN.         |
-| `iam_role_description` | Kubernetes `ServiceAccount` IAM Role description. |
-| `iam_role_name`        | Kubernetes `ServiceAccount` IAM Role name.        |
+| Variable Name | Description                                       |
+|---------------|---------------------------------------------------|
+| `arn`         | Kubernetes `ServiceAccount` IAM Role ARN.         |
+| `description` | Kubernetes `ServiceAccount` IAM Role description. |
+| `name`        | Kubernetes `ServiceAccount` IAM Role name.        |
