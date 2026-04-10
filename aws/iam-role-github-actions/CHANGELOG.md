@@ -3,7 +3,7 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
-## 0.1.1 [03/12/2026]
+## 0.2.0 [04/10/2026]
 
 * Adds `description` output variable.
 

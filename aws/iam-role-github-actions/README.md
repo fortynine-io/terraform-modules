@@ -23,7 +23,7 @@ _A complete example can be found in the [aws/iam-oidc-github-actions/example](/e
 
 ```hcl
 module "example" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/iam-oidc-github-actions?ref=aws/iam-role-github-actions/v0.1.1"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/iam-oidc-github-actions?ref=aws/iam-role-github-actions/v0.2.0"
 
   name        = "github-actions-terraform"
   description = "grants deployment permissions for all AWS terraform root module repos"
