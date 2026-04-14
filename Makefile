@@ -3,7 +3,7 @@ default: module.ci
 # External Inputs...
 CHECKOV_TAG ?= latest
 TFLINT_TAG ?= latest
-TRIVY_TAG ?= latest
+TRIVY_TAG ?= "0.69.3"
 
 MODULES ?= aws/eks-addon \
 					 aws/eks-irsa \
