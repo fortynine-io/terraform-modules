@@ -6,10 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 6.0.0, < 7.0.0"
     }
-    # TODO: Upgrade to 3.x...
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.30"
+      version = "~> 3.1"
     }
     tls = {
       source  = "hashicorp/tls"
