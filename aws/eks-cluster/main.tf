@@ -10,5 +10,5 @@ locals {
 
   auto_mode         = var.auto_mode ? ["true"] : []
   iam_resource_path = "/eks/"
-  aws_region        = data.aws_region.current.name
+  aws_region        = data.aws_region.current.region
 }
