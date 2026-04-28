@@ -1,3 +1,4 @@
+# This differs from the SG provisioned automatically by EKS in that it disallows egress to 0.0.0.0/0...
 resource "aws_security_group" "cluster" {
   name_prefix = "${var.name}-cluster-"
   description = "EKS Cluster [${var.name}] primary SG for intra-node communication."

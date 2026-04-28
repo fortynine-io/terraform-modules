@@ -98,12 +98,14 @@ output "cluster_security_groups" {
   description = "Configuration map for EKS Cluster-related Security Groups."
   value = {
     eks = {
-      id   = data.aws_security_group.eks.id
-      name = data.aws_security_group.eks.name
+      id          = data.aws_security_group.eks.id
+      description = data.aws_security_group.eks.description
+      name        = data.aws_security_group.eks.name
     }
     cluster = {
-      id   = aws_security_group.cluster.id
-      name = aws_security_group.cluster.name
+      id          = aws_security_group.cluster.id
+      description = aws_security_group.cluster.description
+      name        = aws_security_group.cluster.name
     }
   }
 }
