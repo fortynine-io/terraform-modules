@@ -17,9 +17,9 @@ variable "name" {
 
 variable "vpc_config" {
   type = object({
-    endpoint_private_access = optional(bool)
-    endpoint_public_access  = optional(bool)
-    public_access_cidrs     = optional(list(string))
+    endpoint_private_access = optional(bool, true)
+    endpoint_public_access  = optional(bool, false)
+    public_access_cidrs     = optional(list(string), ["0.0.0.0/0"])
     security_group_ids      = list(string)
     subnet_ids              = list(string)
   })
@@ -33,7 +33,7 @@ variable "vpc_config" {
         Default: false
       public_access_cidrs: List of CIDR blocks that can access the EKS public API server endpoint when enabled.
         Default: ["0.0.0.0/0"]
-      security_group_ids: List of Subnet IDs (in at least two different AZs) for which EKS creates cross-account ENIs
+      subnet_ids: List of Subnet IDs (in at least two different AZs) for which EKS creates cross-account ENIs
         to permit communication between worker nodes and the Kubernetes control plane.
   EOT
 }
