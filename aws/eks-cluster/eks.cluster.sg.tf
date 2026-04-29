@@ -2,7 +2,7 @@
 resource "aws_security_group" "cluster" {
   name_prefix = "${var.name}-cluster-"
   description = "EKS Cluster [${var.name}] primary SG for intra-node communication."
-  vpc_id      = var.vpc_id
+  vpc_id      = var.vpc_config.vpc_id
 
   tags = merge(local.default_tags, { "Name" = var.name })
 

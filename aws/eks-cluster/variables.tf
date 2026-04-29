@@ -20,29 +20,26 @@ variable "vpc_config" {
     endpoint_private_access = optional(bool, true)
     endpoint_public_access  = optional(bool, false)
     public_access_cidrs     = optional(list(string), ["0.0.0.0/0"])
-    security_group_ids      = list(string)
+    security_group_ids      = optional(list(string), [])
     subnet_ids              = list(string)
+    vpc_id                  = string
   })
   description = <<-EOT
     (Required) EKS Cluster VPC configuration details.
 
     Attributes:
-      endpoint_private_access: Boolean indicating whether or not the EKS private API server endpoint is enabled.
-        Default: true
-      endpoint_public_access: Boolean indicating whether or not the EKS public API server endpoint is enabled.
-        Default: false
-      public_access_cidrs: List of CIDR blocks that can access the EKS public API server endpoint when enabled.
-        Default: ["0.0.0.0/0"]
-      subnet_ids: List of Subnet IDs (in at least two different AZs) for which EKS creates cross-account ENIs
+      subnet_ids: (Required) List of Subnet IDs (in at least two different AZs) for which EKS creates cross-account ENIs
         to permit communication between worker nodes and the Kubernetes control plane.
+      vpc_id: (Required) VPC ID to associate with the EKS Cluster.
+      endpoint_private_access: (Optional) Boolean indicating whether or not the EKS private API server endpoint is
+        enabled. Default: true
+      endpoint_public_access: (Optional) Boolean indicating whether or not the EKS public API server endpoint is
+        enabled. Default: false
+      public_access_cidrs: (Optional) List of CIDR blocks that can access the EKS public API server endpoint when
+        enabled. Default: ["0.0.0.0/0"]
+      security_group_ids: (Optional) List of security group IDs for the cross-account ENIs that Amazon EKS creates to
+        use to allow communication between your worker nodes and the Kubernetes control plane.
   EOT
-}
-
-# TODO: delete this (and look it up based on SG), or move it to [vpc_config]...
-variable "vpc_id" {
-  type        = string
-  description = "(Required) ID of the VPC to associate with the EKS Cluster."
-  nullable    = false
 }
 
 

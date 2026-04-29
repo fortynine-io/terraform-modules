@@ -26,8 +26,6 @@ module "example" {
 
   kms_key_id = aws_kms_alias.test.target_key_arn
 
-  vpc_id     = module.vpc.vpc_id
-
   cluster_access = {
     cluster_admin = ["arn:aws:iam::000000000000:role/terraform-builder"]
     view          = ["arn:aws:iam::000000000000:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_0000000000000000"]
@@ -35,6 +33,7 @@ module "example" {
 
   vpc_config = {
     subnet_ids = concat(module.vpc.private_subnets, module.vpc.database_subnets)
+    vpc_id     = module.vpc.vpc_id
   }
 }
 ```
@@ -56,7 +55,6 @@ _All variable details can be found in [aws/eks-cluster/variables.tf](variables.t
 | `kms_key_id`            | (Required) KMS Key ARN or Key Alias used for encryption of CloudWatch logs, EKS Cluster secrets, etc.                  |
 | `name`                  | (Required) EKS Cluster name.                                                                                           |
 | `vpc_config`            | (Required) EKS Cluster VPC configuration details.                                                                                           |
-| `vpc_id`                | (Required) ID of the VPC to associate with the EKS Cluster.                                                            |
 | `auto_mode`             | (Optional) Boolean indicating whether or not to enable EKS Auto Mode for automating various cluster maintenance tasks. |
 | `cluster_access`        | (Optional) Cluster-level EKS Cluster access authorization for AWS Principals.                                          |
 | `cluster_version`       | (Optional) Desired Kubernetes control plane version.                                                                   |

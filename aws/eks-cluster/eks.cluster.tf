@@ -1,11 +1,7 @@
 locals {
-  log_types = compact(distinct(var.log_types))
-
-  vpc_endpoint_private_access = try(var.vpc_config.endpoint_private_access, true)
-  vpc_endpoint_public_access  = try(var.vpc_config.endpoint_public_access, false)
-  vpc_public_access_cidrs     = compact(distinct(try(var.vpc_config.public_access_cidrs, [])))
-
-  vpc_security_group_ids = compact(distinct(concat([aws_security_group.cluster.id], var.vpc_config.security_group_ids)))
+  log_types               = compact(distinct(var.log_types))
+  vpc_public_access_cidrs = compact(distinct(var.vpc_config.public_access_cidrs))
+  vpc_security_group_ids  = compact(distinct(concat([aws_security_group.cluster.id], var.vpc_config.security_group_ids)))
 }
 
 
@@ -77,8 +73,8 @@ resource "aws_eks_cluster" "default" {
   vpc_config {
     security_group_ids      = local.vpc_security_group_ids
     subnet_ids              = var.vpc_config.subnet_ids
-    endpoint_private_access = local.vpc_endpoint_private_access
-    endpoint_public_access  = local.vpc_endpoint_public_access
+    endpoint_private_access = var.vpc_config.endpoint_private_access
+    endpoint_public_access  = var.vpc_config.endpoint_public_access
     public_access_cidrs     = local.vpc_public_access_cidrs
   }
 
