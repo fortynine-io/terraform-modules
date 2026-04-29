@@ -5,8 +5,7 @@ Terraform module for provisioning an AWS EKS Cluster and various other associate
 ## Design Notes
 
 * EKS Cluster access is granted exclusively through the [EKS Cluster Access Management API][eks-access-mgmt-api] and
-  callers can configure and grant cluster-level access (_for all Kubernetes namespaces_) via
-  `var.cluster_access`.
+  callers can configure and grant cluster-level access (_for all Kubernetes namespaces_) via `var.cluster_access`.
   * Callers are responsible for granting access scoped to individual Kubernetes namespaces.
   * _This module does not support EKS granting access via the `aws-auth` Kubernetes `ConfigMap`._
 * `var.fargate` must be set to `true` to enable the default EKS Fargate Profile for the `default` and `kube-system`
@@ -23,15 +22,15 @@ module "example" {
   source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-cluster?ref=aws/eks-cluster/v0.0.1"
 
   name            = "the-cluster"
-  cluster_version = "1.34"
+  cluster_version = "1.35"
 
   kms_key_id = aws_kms_alias.test.target_key_arn
 
   vpc_id     = module.vpc.vpc_id
 
   cluster_access = {
-    cluster_admin = ["arn:aws:iam::123456789101:role/terraform-builder"]
-    view          = ["arn:aws:iam::123456789001:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_af17f1238273464f"]
+    cluster_admin = ["arn:aws:iam::000000000000:role/terraform-builder"]
+    view          = ["arn:aws:iam::000000000000:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_0000000000000000"]
   }
 
   vpc_config = {
@@ -56,7 +55,7 @@ _All variable details can be found in [aws/eks-cluster/variables.tf](variables.t
 |-------------------------|------------------------------------------------------------------------------------------------------------------------|
 | `kms_key_id`            | (Required) KMS Key ARN or Key Alias used for encryption of CloudWatch logs, EKS Cluster secrets, etc.                  |
 | `name`                  | (Required) EKS Cluster name.                                                                                           |
-| `subnet_ids`            | (Required) List of Subnet IDs (in at least two different AZs).                                                         |
+| `vpc_config`            | (Required) EKS Cluster VPC configuration details.                                                                                           |
 | `vpc_id`                | (Required) ID of the VPC to associate with the EKS Cluster.                                                            |
 | `auto_mode`             | (Optional) Boolean indicating whether or not to enable EKS Auto Mode for automating various cluster maintenance tasks. |
 | `cluster_access`        | (Optional) Cluster-level EKS Cluster access authorization for AWS Principals.                                          |

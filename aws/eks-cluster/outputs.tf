@@ -83,11 +83,6 @@ output "fargate_role" {
   } : null
 }
 
-output "cluster_version" {
-  description = "EKS Cluster version."
-  value       = aws_eks_cluster.default.version
-}
-
 data "aws_security_group" "eks" {
   id = aws_eks_cluster.default.vpc_config[0].cluster_security_group_id
 
@@ -108,6 +103,11 @@ output "cluster_security_groups" {
       name        = aws_security_group.cluster.name
     }
   }
+}
+
+output "cluster_version" {
+  description = "EKS Cluster version."
+  value       = aws_eks_cluster.default.version
 }
 
 output "k8s_auth" {

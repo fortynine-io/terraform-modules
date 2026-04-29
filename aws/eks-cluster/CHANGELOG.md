@@ -7,5 +7,6 @@ _approximate date each of the changes were made._
 ## 0.0.1 [04/22/2026]
 
 * Initial module implementation.
+  * Supports the creation of EKS Cluster (Auto-Mode and Fargate Profiles) and associated resources.
   * Input Vars:
   * Outputs:
