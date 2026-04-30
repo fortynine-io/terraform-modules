@@ -34,12 +34,12 @@ _configuration are supported_.
 
 ```hcl
 module "eks_addon" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-addon?ref=aws/eks-addon/v0.1.0"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-addon?ref=aws/eks-addon/v0.1.1"
+
+  name          = "coredns"
+  addon_version = "v1.14.2-eksbuild.4"
 
   cluster_name  = "your-eks-cluster-name"
-
-  addon_version = "v1.9.3-eksbuild.11""
-  name          = "coredns"
 
   tags = local.default_tags
 }
@@ -49,16 +49,16 @@ module "eks_addon" {
 
 ```hcl
 module "eks_addon" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-addon?ref=aws/eks-addon/v0.1.0"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-addon?ref=aws/eks-addon/v0.1.1"
+
+  name          = "aws-ebs-csi-driver"
+  addon_version = "v1.59.0-eksbuild.1"
 
   cluster_name = "your-eks-cluster-name"
   cluster_oidc = {
-    arn = "arn:aws:iam::012345678910:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/ABCDEFABDCDFABCDEFABCDEFABCDEFAB"
+    arn = "arn:aws:iam::000000000000:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/ABCDEFABDCDFABCDEFABCDEFABCDEFAB"
     url = "oidc.eks.us-east-1.amazonaws.com/id/ABCDEFABDCDFABCDEFABCDEFABCDEFAB"
   }
-
-  addon_version = "v1.30.0-eksbuild.1"
-  name          = "aws-ebs-csi-driver"
 
   tags = local.default_tags
 }
