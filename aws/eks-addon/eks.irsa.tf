@@ -25,12 +25,15 @@ locals {
     }
   }
 
-  irsa_config   = lookup(local.irsa_options, var.name, null)
+  irsa_config   = lookup(local.irsa_options, var.name, {})
   requires_irsa = (lookup(local.irsa_options, var.name, null) != null) ? ["true"] : []
+  policy_arns   = try(local.irsa_options[var.name].policy_arns, [])
 }
 
 
 module "irsa" {
+  # see: https://github.com/fortynine-io/terraform-modules/tags
+  # aws/eks-irsa/v0.1.0: 08a1187934c86750c0b33711fcdcd4b9a7389836
   source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-irsa?ref=08a1187934c86750c0b33711fcdcd4b9a7389836"
 
   for_each = toset(local.requires_irsa)
@@ -53,8 +56,8 @@ module "irsa" {
 }
 
 resource "aws_iam_role_policy_attachment" "irsa" {
-  for_each = toset(local.irsa_config.policy_arns)
+  for_each = toset(local.policy_arns)
 
-  role       = module.irsa.output.name
+  role       = module.irsa["true"].name
   policy_arn = each.value
 }
