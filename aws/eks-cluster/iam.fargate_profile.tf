@@ -41,24 +41,6 @@ resource "aws_iam_role_policy_attachment" "fargate_profile" {
   role       = aws_iam_role.fargate_profile["true"].name
 }
 
-# Default Fargate Profile: ...equivalent to using "eksctl create cluster --fargate"
-resource "aws_eks_fargate_profile" "default" {
-  for_each = local.fargate_enabled_idx
-
-  cluster_name           = aws_eks_cluster.default.name
-  fargate_profile_name   = "default"
-  pod_execution_role_arn = aws_iam_role.fargate_profile["true"].arn
-  subnet_ids             = var.vpc_config.subnet_ids
-
-  selector {
-    namespace = "default"
-  }
-
-  selector {
-    namespace = "kube-system"
-  }
-}
-
 resource "aws_eks_fargate_profile" "custom" {
   for_each = local.fargate_profiles
 

@@ -102,13 +102,7 @@ variable "cluster_version" {
 
 variable "fargate" {
   type        = bool
-  description = <<-EOT
-    Boolean indicating whether or not to enable Fargate Profiles for the EKS Cluster.
-
-    Notes:
-      - If enabled, a "default" Fargate Profile is provisioned automatically for you with selectors configured for the
-        "default" and "kube-system" namespaces.
-  EOT
+  description = "Boolean indicating whether or not to enable Fargate Profiles for the EKS Cluster."
   default     = false
   nullable    = false
 }
@@ -117,6 +111,7 @@ variable "fargate_profiles" {
   type = map(object({
     namespace = string
     labels    = optional(map(string), {})
+    region    = optional(string, null)
   }))
   description = <<-EOT
     (Optional) Custom Fargate Profile configuration map for the EKS Cluster. Each top-level map key is used as the
@@ -127,7 +122,7 @@ variable "fargate_profiles" {
 
     Attributes:
       - namespace: (Required) Kubernetes Namespace to associate with the Fargate Profile.
-      - labels: (Optional) Map of Kubernetes labels to apply for Fargate Profile Pod affinity.
+      - labels: (Optional) Map of Kubernetes labels to select for Fargate Profile Pod affinity.
   EOT
   default     = {}
   nullable    = false
