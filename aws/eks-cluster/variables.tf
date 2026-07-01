@@ -111,7 +111,6 @@ variable "fargate_profiles" {
   type = map(object({
     namespace = string
     labels    = optional(map(string), {})
-    region    = optional(string, null)
   }))
   description = <<-EOT
     (Optional) Custom Fargate Profile configuration map for the EKS Cluster. Each top-level map key is used as the
