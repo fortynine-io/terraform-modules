@@ -8,8 +8,9 @@ Terraform module for provisioning an AWS EKS Cluster and various other associate
   callers can configure and grant cluster-level access (_for all Kubernetes namespaces_) via `var.cluster_access`.
   * Callers are responsible for granting access scoped to individual Kubernetes namespaces.
   * _This module does not support EKS granting access via the `aws-auth` Kubernetes `ConfigMap`._
-* `var.fargate` must be set to `true` to enable the default EKS Fargate Profile for the `default` and `kube-system`
-  namespaces as well as any custom, caller-defined Fargate profiles.
+* `var.fargate` must be set to `true` to provision Fargate-related resources.
+  * No `aws_eks_fargate_profile` resources are created by default. The caller must explicitly create these via
+    `var.vargate_profiles`.
 
 [eks-access-mgmt-api]: https://aws.amazon.com/blogs/containers/a-deep-dive-into-simplified-amazon-eks-access-management-controls
 
@@ -19,7 +20,7 @@ _A complete example can be found in the [aws/eks-cluster/example](/example) dire
 
 ```hcl
 module "example" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-cluster?ref=aws/eks-cluster/v0.0.1"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/eks-cluster?ref=aws/eks-cluster/v0.0.2"
 
   name            = "the-cluster"
   cluster_version = "1.35"
