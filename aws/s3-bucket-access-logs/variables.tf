@@ -7,15 +7,6 @@ variable "log_retention_days" {
   default     = 365
 }
 
-variable "log_retention_storage_class" {
-  type        = string
-  description = <<-EOT
-    (Optional) S3 Storage Class to transition log files to after 7 days.
-  EOT
-  nullable    = false
-  default     = "GLACIER_IR"
-}
-
 variable "name" {
   type        = string
   description = <<-EOT
