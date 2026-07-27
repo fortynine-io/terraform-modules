@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "access_logs" {
 
 data "aws_iam_policy_document" "access_logs" {
   statement {
-    sid       = "CurrentAccountS3LoggingServiceAccess"
+    sid       = "S3LoggingServiceAccess"
     effect    = "Allow"
     actions   = ["s3:PutObject"]
     resources = ["${aws_s3_bucket.access_logs.arn}/*"]
@@ -66,16 +66,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "access_logs" {
   bucket = aws_s3_bucket.access_logs.id
-
-  rule {
-    id     = "TransitionToCheaperTier"
-    status = "Enabled"
-
-    transition {
-      days          = 7
-      storage_class = var.log_retention_storage_class
-    }
-  }
 
   rule {
     id     = "ExpireAccessLogs"
