@@ -3,7 +3,7 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
-## 0.1.0 [07/13/2026]
+## 0.1.0 [07/27/2026]
 
 * Initial Module implementation.
   * Provisions an S3 Bucket configured for the purpose of hosting / maintaining S3 Bucket access logs.
