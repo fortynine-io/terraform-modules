@@ -3,7 +3,7 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
-## 0.1.2 [07/27/2026]
+## 0.1.2 [07/28/2026]
 
 * Replaces deprecated usage of `data.aws_region.current.name` with `data.aws_region.current.region`.
 
