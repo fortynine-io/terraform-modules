@@ -3,6 +3,10 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
+## 0.1.3 [07/28/2026]
+
+* Fixes missing `tag` assignment for `aws_s3_bucket.access_logs` resource.
+
 ## 0.1.2 [07/28/2026]
 
 * Replaces deprecated usage of `data.aws_region.current.name` with `data.aws_region.current.region`.
