@@ -5,8 +5,7 @@ locals {
 
 resource "aws_s3_bucket" "access_logs" {
   bucket = local.bucket_name
-
-  tags = local.default_tags
+  tags   = local.default_tags
 }
 
 data "aws_iam_policy_document" "access_logs" {
