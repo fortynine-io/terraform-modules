@@ -8,6 +8,6 @@ locals {
   # templates_path = "${path.module}/templates"
 
   default_tags = merge(var.tags, {
-    "ops/terraform-module" = "github.com/fortynine-io/terraform-modules/aws/s3-bucket-access-logs:${local.module_version}"
+    "ops:terraform-module" = "github.com/fortynine-io/terraform-modules/aws/s3-bucket-access-logs:${local.module_version}"
   })
 }

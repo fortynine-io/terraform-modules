@@ -23,9 +23,9 @@ _A complete example can be found in the [aws/s3-bucket-access-logs/example](/exa
 
 ```hcl
 module "s3_bucket_access_logs" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/s3-bucket-access-logs?ref=aws/s3-bucket-access-logs/v0.1.2"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/s3-bucket-access-logs?ref=aws/s3-bucket-access-logs/v0.1.3"
 
-  tags = { "example-key" = "example-value" }
+  tags = { "example:key" = "value" }
 }
 ```
 
