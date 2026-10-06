@@ -1,3 +1,14 @@
+variable "aws_region" {
+  type        = string
+  description = <<-EOT
+    (Optional) AWS Region in which to create the S3 resources.
+
+    Note: If omitted, provider's the default region will be used.
+  EOT
+  nullable    = true
+  default     = null
+}
+
 variable "log_retention_days" {
   type        = number
   description = <<-EOT
