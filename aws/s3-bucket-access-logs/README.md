@@ -43,6 +43,7 @@ _All variable details can be found in [aws/s3-bucket-access-logs/variables.tf](v
 
 | Variable Name               | Description                                                                                           |
 |-----------------------------|-------------------------------------------------------------------------------------------------------|
+| `aws_region`                | (Optional) AWS Region in which to create the S3 resources.                                            |
 | `log_retention_days`        | (Optional) Number of days for which to retain S3 access log files.                                    |
 | `name`                      | (Optional) S3 Bucket name.                                                                            |
 | `source_arn_authorizations` | (Optional) List of S3 Bucket ARNs to authorize s3:PutObject access to the access logs bucket.         |
