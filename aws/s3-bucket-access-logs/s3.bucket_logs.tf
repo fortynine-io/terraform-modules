@@ -4,6 +4,7 @@ locals {
 }
 
 resource "aws_s3_bucket" "access_logs" {
+  region = local.aws_region
   bucket = local.bucket_name
   tags   = local.default_tags
 }
@@ -35,11 +36,13 @@ data "aws_iam_policy_document" "access_logs" {
 }
 
 resource "aws_s3_bucket_policy" "access_logs" {
+  region = local.aws_region
   bucket = aws_s3_bucket.access_logs.bucket
   policy = data.aws_iam_policy_document.access_logs.json
 }
 
 resource "aws_s3_bucket_public_access_block" "access_logs" {
+  region = local.aws_region
   bucket = aws_s3_bucket.access_logs.id
 
   block_public_acls       = true
@@ -49,6 +52,7 @@ resource "aws_s3_bucket_public_access_block" "access_logs" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
+  region = local.aws_region
   bucket = aws_s3_bucket.access_logs.id
 
   rule {
@@ -62,6 +66,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "access_logs" {
+  region = local.aws_region
   bucket = aws_s3_bucket.access_logs.id
 
   rule {
