@@ -4,11 +4,17 @@ Terraform Module for provisioning an S3 Bucket for the purpose of maintaining S3
 
 ## Design Notes
 
-* This module does not provide S3 object lifecycle rules to transition files to a cheaper storage tier. S3 access
-  logs are usually well under the `128Kb` default minimum size for files to transition storage classes and would
-  generally accrue more in transition costs than would be saved by a storage tier transition.
-* By default, the access log bucket maintains all log files for `365` days to meet most compliance scenarios. However,
+* By default, the access log bucket maintains log files for `365` days to meet most compliance scenarios. However,
   callers can override this setting by modifying `var.log_retention_days`.
+  * This module does not provide S3 object lifecycle rules to transition files to a cheaper storage tier. S3 access
+    logs are usually well under the `128Kb` default minimum size for files to transition storage classes and would
+    generally accrue more in transition costs than would be saved by a storage tier transition.
+* Since the use case for this module is so narrowly focused, the module maintains its own S3 bucket policy via the
+  `aws_s3_bucket_policy.access_logs` resource.
+  * By default, the bucket policy permits access logging by _all buckets within the target account_. Callers can modify
+    the policy behavior and limit the authorized buckets by configuring `var.source_arn_authorizations`.
+* S3 access log buckets can only maintain logs for buckets within the same AWS Region. If you require access logging for
+  buckets in multiple regions, a separate access logs bucket must be created in each region.
 * S3 buckets will have the following name format if `var.name` is not provided:
   `<aws-account-id>.<aws-region>.s3-access-logs`
 
@@ -23,7 +29,7 @@ _A complete example can be found in the [aws/s3-bucket-access-logs/example](/exa
 
 ```hcl
 module "s3_bucket_access_logs" {
-  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/s3-bucket-access-logs?ref=aws/s3-bucket-access-logs/v0.1.3"
+  source = "git::https://github.com/fortynine-io/terraform-modules.git//aws/s3-bucket-access-logs?ref=aws/s3-bucket-access-logs/v0.2.1"
 
   tags = { "example:key" = "value" }
 }

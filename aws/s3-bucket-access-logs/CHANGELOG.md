@@ -3,6 +3,10 @@
 _The following sections summarize the changes made throughout this project and include the semantic version numbers and_
 _approximate date each of the changes were made._
 
+## 0.2.1 [10/30/2026]
+
+* Module documentation clarifications and enhancements.
+
 ## 0.2.0 [10/06/2026]
 
 * Adds `var.aws_region` to support using a single provider instance creating resources across regions.
