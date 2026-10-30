@@ -1,5 +1,4 @@
 <!-- markdownlint-disable first-line-heading -->
-
 ## [MM/DD/YYYY]
 
 <!--
