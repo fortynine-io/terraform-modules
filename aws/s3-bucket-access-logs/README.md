@@ -4,15 +4,17 @@ Terraform Module for provisioning an S3 Bucket for the purpose of maintaining S3
 
 ## Design Notes
 
-* This module does not provide S3 object lifecycle rules to transition files to a cheaper storage tier. S3 access
-  logs are usually well under the `128Kb` default minimum size for files to transition storage classes and would
-  generally accrue more in transition costs than would be saved by a storage tier transition.
-* By default, the access log bucket maintains all log files for `365` days to meet most compliance scenarios. However,
+* By default, the access log bucket maintains log files for `365` days to meet most compliance scenarios. However,
   callers can override this setting by modifying `var.log_retention_days`.
-* Since the use case for this module is so narrowly focused (tracking S3 access logs), the module maintains its own S3
-  bucket policy via the `aws_s3_bucket_policy.access_logs` resource. By default, the policy permits access logging by
-  _all buckets within the target account_. Callers can modify the policy behavior and limit the authorized buckets by
-  configuring `var.source_arn_authorizations`.
+  * This module does not provide S3 object lifecycle rules to transition files to a cheaper storage tier. S3 access
+    logs are usually well under the `128Kb` default minimum size for files to transition storage classes and would
+    generally accrue more in transition costs than would be saved by a storage tier transition.
+* Since the use case for this module is so narrowly focused, the module maintains its own S3 bucket policy via the
+  `aws_s3_bucket_policy.access_logs` resource.
+  * By default, the bucket policy permits access logging by _all buckets within the target account_. Callers can modify
+    the policy behavior and limit the authorized buckets by configuring `var.source_arn_authorizations`.
+* S3 access log buckets can only maintain logs for buckets within the same AWS Region. If you require access logging for
+  buckets in multiple regions, a separate access logs bucket must be created in each region.
 * S3 buckets will have the following name format if `var.name` is not provided:
   `<aws-account-id>.<aws-region>.s3-access-logs`
 
